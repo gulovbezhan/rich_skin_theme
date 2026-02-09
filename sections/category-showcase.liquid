@@ -1,0 +1,183 @@
+{%- comment -%}
+  Rich Skin 2026 - Category Showcase Grid
+  Displays all product categories in a modern grid layout
+{%- endcomment -%}
+
+<div class="rs-categories" data-section-id="{{ section.id }}" data-section-type="category-showcase">
+  <div class="rs-categories__header">
+    {%- if section.settings.label != blank -%}
+      <span class="rs-categories__label">{{ section.settings.label | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h2 class="rs-categories__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="rs-categories__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="rs-categories__grid">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link | default: '#' }}"
+         class="rs-category-tile{% if block.settings.featured %} rs-category-tile--featured{% endif %}"
+         {{ block.shopify_attributes }}
+         data-aos="row-of-{{ section.settings.per_row }}">
+
+        {%- if block.settings.image != blank -%}
+          {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <img class="rs-category-tile__image lazyload"
+            data-src="{{ img_url }}"
+            data-widths="[360, 540, 720, 900, 1080]"
+            data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ block.settings.heading | escape }}">
+        {%- else -%}
+          <div class="rs-category-tile__placeholder" style="background: {{ block.settings.placeholder_color }};">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+
+        <div class="rs-category-tile__overlay"></div>
+
+        <div class="rs-category-tile__content">
+          <h3 class="rs-category-tile__name">{{ block.settings.heading | escape }}</h3>
+          <span class="rs-category-tile__cta">Shop Now &rarr;</span>
+        </div>
+      </a>
+    {%- endfor -%}
+
+    {%- if section.blocks.size == 0 -%}
+      {%- assign placeholder_categories = "Skin Devices,Korean Skincare,Face Tools,Neck & Jawline,Beauty Sleep,Body Care,Hair & Scalp,Supplements,Wellness,Tech,Relaxation,Pain Relief,Posturing,Body,Spa & Self-Care" | split: "," -%}
+      {%- assign placeholder_colors = "#f1b4ae,#e8d5b0,#c9a96e,#d4908a,#b8a9c9,#a8d8c8,#f0d5a8,#d5c4a1,#b5c8d5,#c4c4c4,#e5c4c4,#c8b8a0,#a8b8c8,#d8c8b8,#f0e0d0" | split: "," -%}
+      {%- for category in placeholder_categories -%}
+        <a href="#" class="rs-category-tile{% if forloop.index == 1 %} rs-category-tile--featured{% endif %}">
+          <div class="rs-category-tile__placeholder" style="background: linear-gradient(135deg, {{ placeholder_colors[forloop.index0] }} 0%, {{ placeholder_colors[forloop.index0] | color_darken: 20 }} 100%);">
+            {%- capture placeholder_num -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+            {{ 'collection-' | append: placeholder_num | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          <div class="rs-category-tile__overlay"></div>
+          <div class="rs-category-tile__content">
+            <h3 class="rs-category-tile__name">{{ category }}</h3>
+            <span class="rs-category-tile__cta">Shop Now &rarr;</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category Showcase",
+  "class": "index-section index-section--flush",
+  "max_blocks": 15,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Explore"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Discover our curated collection of beauty & wellness essentials"
+    },
+    {
+      "type": "range",
+      "id": "per_row",
+      "label": "Items per row",
+      "default": 5,
+      "min": 3,
+      "max": 5,
+      "step": 1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Category name",
+          "default": "Category"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "color",
+          "id": "placeholder_color",
+          "label": "Placeholder color",
+          "default": "#f1b4ae"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Make featured (larger)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Showcase",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "heading": "Skin Devices",
+            "featured": true,
+            "placeholder_color": "#f1b4ae"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "heading": "Korean Skincare",
+            "placeholder_color": "#e8d5b0"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "heading": "Face Tools",
+            "placeholder_color": "#c9a96e"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "heading": "Neck & Jawline",
+            "placeholder_color": "#d4908a"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "heading": "Beauty Sleep",
+            "placeholder_color": "#b8a9c9"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
