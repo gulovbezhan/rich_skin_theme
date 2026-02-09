@@ -1,0 +1,192 @@
+{%- comment -%}
+  Rich Skin 2026 - Brand Editorial / Story Section
+  Modern editorial-style brand story with image and feature highlights
+{%- endcomment -%}
+
+<div class="rs-editorial" data-section-id="{{ section.id }}" data-section-type="brand-editorial">
+  <div class="rs-editorial__inner{% if section.settings.layout == 'right' %} rs-editorial__inner--reversed{% endif %}">
+
+    <div class="rs-editorial__image-wrap" data-aos>
+      <div class="rs-editorial__image-accent"></div>
+      {%- if section.settings.image != blank -%}
+        {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload"
+          data-src="{{ img_url }}"
+          data-widths="[360, 540, 720, 900, 1080]"
+          data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+          data-sizes="auto"
+          alt="{{ section.settings.title | escape }}"
+          style="width: 100%; display: block;">
+      {%- else -%}
+        <div style="background: linear-gradient(135deg, var(--rs-rose-lighter) 0%, var(--rs-rose-light) 100%); padding: 80px; text-align: center;">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="rs-editorial__content" data-aos>
+      {%- if section.settings.label != blank -%}
+        <span class="rs-editorial__label">{{ section.settings.label | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="rs-editorial__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="rs-editorial__text rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="rs-editorial__features">
+          {%- for block in section.blocks -%}
+            <div class="rs-editorial__feature" {{ block.shopify_attributes }}>
+              <div class="rs-editorial__feature-icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'leaf' -%}
+                    <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66L7 18.99c3-1 5.22-2.67 7-5.99 1.36 3.32 3 6 7 8l1-2s-1.77-4.03-5-9z"/></svg>
+                  {%- when 'shield' -%}
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  {%- when 'star' -%}
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  {%- when 'heart' -%}
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                  {%- when 'truck' -%}
+                    <svg viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 4v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  {%- when 'refresh' -%}
+                    <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                {%- endcase -%}
+              </div>
+              <span class="rs-editorial__feature-text">{{ block.settings.text | escape }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  {%- if section.settings.layout == 'right' -%}
+    .rs-editorial__inner--reversed {
+      direction: rtl;
+    }
+    .rs-editorial__inner--reversed > * {
+      direction: ltr;
+    }
+  {%- endif -%}
+</style>
+
+{% schema %}
+{
+  "name": "Brand Editorial",
+  "class": "index-section index-section--flush",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Beauty Rooted in Wellness"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>At Rich Skin, we believe true beauty radiates from within. Our curated collection blends cutting-edge skin technology with time-honoured wellness rituals, bringing you products that nurture both body and soul.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Discover More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature highlight",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            { "value": "leaf", "label": "Natural/Leaf" },
+            { "value": "shield", "label": "Protection/Shield" },
+            { "value": "star", "label": "Premium/Star" },
+            { "value": "heart", "label": "Care/Heart" },
+            { "value": "truck", "label": "Delivery/Truck" },
+            { "value": "refresh", "label": "Returns/Refresh" },
+            { "value": "check", "label": "Quality/Check" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature text",
+          "default": "Premium Quality"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Editorial",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": { "icon": "leaf", "text": "Clean Ingredients" }
+        },
+        {
+          "type": "feature",
+          "settings": { "icon": "shield", "text": "Clinically Tested" }
+        },
+        {
+          "type": "feature",
+          "settings": { "icon": "truck", "text": "Free Shipping Over £59" }
+        },
+        {
+          "type": "feature",
+          "settings": { "icon": "refresh", "text": "15-Day Easy Returns" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

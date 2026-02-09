@@ -1,0 +1,131 @@
+{
+  "sections": {
+    "collection-hero": {
+      "type": "slideshow",
+      "blocks": {
+        "hero-slide": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "",
+            "title": "",
+            "title_size": 60,
+            "subheading": "{{ collection.title }}",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-center horizontal-center",
+            "image": "{{ collection.metafields.custom.computer.value }}",
+            "image_mobile": "{{ collection.metafields.custom.mobile.value }}",
+            "parallax_direction": "top",
+            "overlay_opacity": 20,
+            "focal_point": "center center"
+          }
+        }
+      },
+      "block_order": ["hero-slide"],
+      "settings": {
+        "section_height": "450px",
+        "mobile_height": "300px",
+        "parallax": false,
+        "style": "minimal",
+        "autoplay": false,
+        "autoplay_speed": 5
+      }
+    },
+    "collection-header": {
+      "type": "collection-header",
+      "disabled": true,
+      "settings": {
+        "enable": true,
+        "collection_image_enable": false,
+        "parallax": false,
+        "parallax_direction": "top"
+      }
+    },
+    "subcollections": {
+      "type": "featured-categories",
+      "blocks": {
+        "sub-1": {
+          "type": "category",
+          "settings": {
+            "heading": "Bestsellers",
+            "tag": "Popular",
+            "description": "Our most loved products in this category",
+            "placeholder_color": "#f1b4ae"
+          }
+        },
+        "sub-2": {
+          "type": "category",
+          "settings": {
+            "heading": "New Arrivals",
+            "tag": "New",
+            "description": "Latest additions to explore",
+            "placeholder_color": "#e8d5b0"
+          }
+        },
+        "sub-3": {
+          "type": "category",
+          "settings": {
+            "heading": "Gift Sets",
+            "tag": "Gift Idea",
+            "description": "Curated bundles for every occasion",
+            "placeholder_color": "#c9a96e"
+          }
+        },
+        "sub-4": {
+          "type": "category",
+          "settings": {
+            "heading": "On Sale",
+            "tag": "Save",
+            "description": "Premium products at special prices",
+            "placeholder_color": "#b8a9c9"
+          }
+        }
+      },
+      "block_order": ["sub-1", "sub-2", "sub-3", "sub-4"],
+      "settings": {
+        "label": "Browse",
+        "title": "Shop Within This Collection"
+      }
+    },
+    "main-collection": {
+      "type": "main-collection",
+      "blocks": {
+        "product_grid": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 4,
+            "rows_per_page": 8,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": ["product_grid"],
+      "settings": {
+        "enable_sidebar": true,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "title": "Recently Viewed",
+        "per_row": 5,
+        "full_width": false
+      }
+    }
+  },
+  "order": [
+    "collection-hero",
+    "collection-header",
+    "subcollections",
+    "main-collection",
+    "recently-viewed"
+  ]
+}

@@ -1,0 +1,76 @@
+{%- comment -%}
+  Rich Skin 2026 - Marquee / Scrolling Banner
+  Infinite scrolling text strip for branding
+{%- endcomment -%}
+
+{%- if section.blocks.size > 0 -%}
+<div class="rs-marquee" data-section-id="{{ section.id }}" data-section-type="marquee-banner"
+     style="background: {{ section.settings.bg_color }};">
+  <div class="rs-marquee__inner">
+    {%- comment -%} Duplicate blocks 4x for seamless loop {%- endcomment -%}
+    {%- for i in (1..4) -%}
+      {%- for block in section.blocks -%}
+        <div class="rs-marquee__item" {{ block.shopify_attributes }}
+             style="color: {{ section.settings.text_color }};">
+          <span>{{ block.settings.text | escape }}</span>
+          <span class="dot" style="background: {{ section.settings.accent_color }};"></span>
+        </div>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Marquee Banner",
+  "class": "index-section--flush",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent dot color",
+      "default": "#f1b4ae"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping Over £59"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Banner",
+      "blocks": [
+        { "type": "text", "settings": { "text": "Free Shipping Over £59" } },
+        { "type": "text", "settings": { "text": "15-Day Hassle-Free Returns" } },
+        { "type": "text", "settings": { "text": "Premium Beauty & Wellness" } },
+        { "type": "text", "settings": { "text": "Clinically Tested Products" } },
+        { "type": "text", "settings": { "text": "Trusted by Thousands" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
